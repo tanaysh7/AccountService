@@ -1,3 +1,3 @@
 # AccountService
-This is an archetype, I have created for a spring boot restful service that connects to a Redis cache (https://redis.io/), which is a fast and scalable in-memory data structure store. This service should be able to perform all basic CRUD operations from its rest end points.
-I have used Maven for dependency management and Reddison as the java client to access Redis.
+This is a simple Spring-boot restful web service that connects to Redis (https://redis.io/), which is a fast and scalable in-memory data structure store. Built and run on Java 8, uses Maven for dependency management and Reddison's Java client to connect to Redis. This service should be able to quickly search , store and retrieve information on the go.
+### Pending - Dockerize the application & make it cloud ready
