@@ -1,11 +1,14 @@
 package com.accounts.service.AccountService;
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.accounts.service.AccountDAO.AccDAO;
+import com.accounts.service.AccountDAO.AccDAOImpl;
 import com.accounts.service.Accounts.Accounts;
 
 @SpringBootApplication
@@ -21,7 +24,14 @@ public class App {
     }
     
     @RequestMapping(value = "/accounts")
-    Accounts getAllAccounts() {
-        return new Accounts(1,"Tanay Shankar",1200.0,new Date());
+    List<Accounts> getAllAccounts() {
+    	AccDAO AccData = new AccDAOImpl();
+    	return AccData.getAllAccounts();
+    }
+    
+    @RequestMapping(value = "/account/{id}")
+    Accounts getAccount(@PathVariable("id") int id) {
+    	AccDAO AccData = new AccDAOImpl();
+    	return AccData.getAccount(id);
     }
 }
