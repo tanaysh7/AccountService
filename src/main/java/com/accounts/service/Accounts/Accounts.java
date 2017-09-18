@@ -8,6 +8,8 @@ public class Accounts {
 	private String accHolderName;
 	private double accBalance;
 	private Date dateCreated;
+	
+	public Accounts(){}
 
 	public Accounts(int accId, String accHolderName, double accBalance, Date dateCreated) {
 		this.accId=accId;

@@ -4,19 +4,39 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.redisson.Redisson;
+import org.redisson.api.RBucket;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import com.accounts.service.Accounts.Accounts;
 
-public class AccDAOImpl implements AccDAO {
 
-	List<Accounts> k=new ArrayList<Accounts>();
+public class AccDAOImpl implements AccDAO {
+	
+  	
+  	public static RedissonClient createClient() {
+  		final Config config;
+  		config = new Config();
+  		config.useSingleServer().setAddress("redis://127.0.0.1:6379");
+  		return Redisson.create(config);
+  	}
+  	 	
+
+	List<Accounts> k=new ArrayList<Accounts>();//TODO Remove and replace
 	public AccDAOImpl(){	
-	k.add( new Accounts(1,"Tanay Shankar",10000.0,new Date()));
-	k.add( new Accounts(2,"Steve Jobs",20000.0,new Date()));
+		
+		RedissonClient client = createClient();
+		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
+		List<Accounts> k=new ArrayList<Accounts>();
+		k.add( new Accounts(1,"Tanay Shankar",10000.0,new Date()));
+		k.add( new Accounts(2,"Steve Jobs",20000.0,new Date()));
+		bucket.set(k);
 }
 	@Override
 	public List<Accounts> getAllAccounts() {
-		
-		return k;
+		RedissonClient client = createClient();
+		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
+		return (List<Accounts>) bucket.get();
 	}
 
 	@Override
