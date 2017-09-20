@@ -1,8 +1,8 @@
 package com.accounts.service.AccountDAO;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;
@@ -22,15 +22,15 @@ public class AccDAOImpl implements AccDAO {
   	}
   	 	
 
-	List<Accounts> k=new ArrayList<Accounts>();//TODO Remove and replace
+	
 	public AccDAOImpl(){	
-		
+		/*
 		RedissonClient client = createClient();
 		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
-		List<Accounts> k=new ArrayList<Accounts>();
-		k.add( new Accounts(1,"Tanay Shankar",10000.0,new Date()));
-		k.add( new Accounts(2,"Steve Jobs",20000.0,new Date()));
-		bucket.set(k);
+		List<Accounts> next=new ArrayList<Accounts>();
+		next.add( new Accounts(1,"Tanay Shankar",10000.0,new Date()));
+		next.add( new Accounts(2,"Steve Jobs",20000.0,new Date()));
+		bucket.set(next);*/
 }
 	@Override
 	public List<Accounts> getAllAccounts() {
@@ -42,25 +42,36 @@ public class AccDAOImpl implements AccDAO {
 	@Override
 	public Accounts getAccount(int accId) {
 		
-		return  k.get(accId-1);
+		RedissonClient client = createClient();
+		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
+		return bucket.get().stream().filter(i->i.getAccId()==accId).collect(Collectors.toList()).get(0);
 	}
 
 	@Override
 	public void updateAccount(Accounts Accounts) {
-		Accounts changed=k.get(Accounts.getAccId()-1);
-		changed.setAccBalance(Accounts.getAccBalance());
-		changed.setAccHolderName(Accounts.getAccHolderName());
-		changed.setDateCreated(Accounts.getDateCreated());
+		RedissonClient client = createClient();
+		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
+		List<Accounts> next = new ArrayList<Accounts>();
+		next = bucket.get().stream().filter(i->i.getAccId()!=Accounts.getAccId()).collect(Collectors.toList());
+		next.add(Accounts);
+		bucket.set(next);
 	}
 
 	@Override
 	public void deleteAccount(Accounts Accounts) {
-		k.remove(Accounts.getAccId()-1);
+		RedissonClient client = createClient();
+		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
+		bucket.set(bucket.get().stream().filter(i->i.getAccId()!=Accounts.getAccId()).collect(Collectors.toList()));
 		
 	}
 	@Override
 	public void addAccount(Accounts Accounts) {
-		k.add(Accounts);
+		RedissonClient client = createClient();
+		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
+		List<Accounts> next = new ArrayList<Accounts>();
+		next=bucket.get();
+		next.add(Accounts);
+		bucket.set(next);
 		
 	}
 
