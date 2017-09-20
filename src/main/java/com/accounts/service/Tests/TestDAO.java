@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
+import org.junit.After;
 import org.junit.Test;
 import com.accounts.service.AccountDAO.AccDAOImpl;
 import com.accounts.service.Accounts.Accounts;
@@ -14,7 +15,6 @@ public class TestDAO {
 	AccDAOImpl tester = new AccDAOImpl();
 	
 	
-	
 	@Test 
 	public void testAdd(){
 		 
@@ -22,13 +22,7 @@ public class TestDAO {
 		assertNotNull(tester.getAccount(100));
 	}
 	
-	@Test 
-	public void testget(){
 		
-		assertEquals(tester.getAccount(100).getAccId(),100);
-	}
-	
-	
 	@Test 
 	public void testUpdate(){
 		 
@@ -36,10 +30,17 @@ public class TestDAO {
 		assertEquals((int)tester.getAccount(100).getAccBalance(), 0);
 	}
 	
-	@Test 
+	@Test
 	public void testDelete(){
+		
 		 tester.deleteAccount(new Accounts(100,"Test Name",0.0,new Date()));
-		assertNotEquals(tester.getAllAccounts().get(tester.getAllAccounts().size()-1), 100);
+		 assertNotEquals(tester.getAllAccounts().get(tester.getAllAccounts().size()-1), 100);
+	}
+	
+	@After
+	public void Cleanup() {
+		tester.deleteAccount(new Accounts(100,"Test Name",0.0,new Date()));	
+		tester=null;
 	}
 	
 	
