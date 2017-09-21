@@ -2,6 +2,10 @@ package com.accounts.service.AccountService;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Tanay Shankar on 22-Sep-2017
+ *
+ */
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

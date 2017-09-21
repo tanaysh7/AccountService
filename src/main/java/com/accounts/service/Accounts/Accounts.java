@@ -2,6 +2,11 @@ package com.accounts.service.Accounts;
 
 import java.util.Date;
 
+/**
+ * @author Tanay Shankar on 22-Sep-2017
+ *
+ */
+
 public class Accounts {
 
 	private int accId;
