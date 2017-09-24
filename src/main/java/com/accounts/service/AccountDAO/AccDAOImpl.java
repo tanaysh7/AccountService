@@ -75,6 +75,7 @@ public class AccDAOImpl implements AccDAO {
 		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
 		List<Accounts> next = new ArrayList<Accounts>();
 		next=bucket.get();
+		if(next.stream().filter(i->i.getAccId()==Accounts.getAccId()).collect(Collectors.toList()).size()!=0)
 		next.add(Accounts);
 		bucket.set(next);
 		
