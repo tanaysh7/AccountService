@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.accounts.service.AccountDAO.AccDAO;
 import com.accounts.service.AccountDAO.AccDAOImpl;
+import com.accounts.service.Accounts.AccountStatus;
 import com.accounts.service.Accounts.Accounts;
 
 @SpringBootApplication
@@ -43,5 +44,11 @@ public class App {
     Accounts getAccount(@PathVariable("id") int id) {
     	AccDAO AccData = new AccDAOImpl();
     	return AccData.getAccount(id);
+    }
+    
+    @RequestMapping(value = "/status")
+    AccountStatus getStatus() {
+    	AccDAO AccData = new AccDAOImpl();
+    	return AccData.getStatus();
     }
 }

@@ -8,6 +8,8 @@ import org.redisson.Redisson;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+
+import com.accounts.service.Accounts.AccountStatus;
 import com.accounts.service.Accounts.Accounts;
 
 
@@ -79,6 +81,19 @@ public class AccDAOImpl implements AccDAO {
 		next.add(Accounts);
 		bucket.set(next);
 		
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see com.accounts.service.AccountDAO.AccDAO#getStatus()
+	 */
+	@Override
+	public AccountStatus getStatus() {
+		RedissonClient client = createClient();
+		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
+		List<Accounts> all= bucket.get();
+		return new AccountStatus((double) all.size(), all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(),all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(), all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(), all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble());
 	}
 
 }

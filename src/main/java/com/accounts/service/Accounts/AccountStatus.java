@@ -9,40 +9,56 @@ package com.accounts.service.Accounts;
  */
 public class AccountStatus {
 
-	Double totalCustomers;
-	Double totalBal;
-	Double avgBal;
-	Double interestRate;
-	Double minCashAvail;
+	double totalCustomers;
+	double totalBal;
+	double avgBal;
+	double interestRate;
+	double minCashAvail;
 	
-	public Double getTotalCustomers() {
+	/**
+	 * @param totalCustomers
+	 * @param totalBal
+	 * @param avgBal
+	 * @param interestRate
+	 * @param minCashAvail
+	 */
+	public AccountStatus(double totalCustomers, double totalBal, double avgBal, double interestRate,
+			double minCashAvail) {
+		super();
+		this.totalCustomers = totalCustomers;
+		this.totalBal = totalBal;
+		this.avgBal = avgBal;
+		this.interestRate = interestRate;
+		this.minCashAvail = minCashAvail;
+	}
+	public double getTotalCustomers() {
 		return totalCustomers;
 	}
-	public void setTotalCustomers(Double totalCustomers) {
+	public void setTotalCustomers(double totalCustomers) {
 		this.totalCustomers = totalCustomers;
 	}
-	public Double getTotalBal() {
+	public double getTotalBal() {
 		return totalBal;
 	}
-	public void setTotalBal(Double totalBal) {
+	public void setTotalBal(double totalBal) {
 		this.totalBal = totalBal;
 	}
-	public Double getAvgBal() {
+	public double getAvgBal() {
 		return avgBal;
 	}
-	public void setAvgBal(Double avgBal) {
+	public void setAvgBal(double avgBal) {
 		this.avgBal = avgBal;
 	}
-	public Double getInterestRate() {
+	public double getInterestRate() {
 		return interestRate;
 	}
-	public void setInterestRate(Double interestRate) {
+	public void setInterestRate(double interestRate) {
 		this.interestRate = interestRate;
 	}
-	public Double getMinCashAvail() {
+	public double getMinCashAvail() {
 		return minCashAvail;
 	}
-	public void setMinCashAvail(Double minCashAvail) {
+	public void setMinCashAvail(double minCashAvail) {
 		this.minCashAvail = minCashAvail;
 	}
 }
