@@ -77,7 +77,7 @@ public class AccDAOImpl implements AccDAO {
 		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
 		List<Accounts> next = new ArrayList<Accounts>();
 		next=bucket.get();
-		if(next.stream().filter(i->i.getAccId()==Accounts.getAccId()).collect(Collectors.toList()).size()!=0)
+	//	if(next.stream().filter(i->i.getAccId()==Accounts.getAccId()).collect(Collectors.toList()).size()!=0) //add unique logic
 		next.add(Accounts);
 		bucket.set(next);
 		
@@ -93,7 +93,18 @@ public class AccDAOImpl implements AccDAO {
 		RedissonClient client = createClient();
 		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
 		List<Accounts> all= bucket.get();
-		return new AccountStatus((double) all.size(), all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(),all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(), all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(), all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble());
+		return new AccountStatus(all.size(), all.stream().mapToDouble(a -> a.getAccBalance()).sum(),all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(),calculateInterest(all),all.stream().mapToDouble(a -> a.getAccBalance()).sum()/10);
+	}
+
+
+
+	/**
+	 * @param all
+	 * @return
+	 */
+	private double calculateInterest(List<Accounts> all) {
+		double sum= all.parallelStream().mapToDouble(a -> a.getAccBalance()).sum();
+		return sum*100/(sum+sum/all.size());//TODO add logic
 	}
 
 }

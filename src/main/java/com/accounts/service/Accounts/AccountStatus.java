@@ -9,7 +9,7 @@ package com.accounts.service.Accounts;
  */
 public class AccountStatus {
 
-	double totalCustomers;
+	int totalCustomers;
 	double totalBal;
 	double avgBal;
 	double interestRate;
@@ -22,7 +22,7 @@ public class AccountStatus {
 	 * @param interestRate
 	 * @param minCashAvail
 	 */
-	public AccountStatus(double totalCustomers, double totalBal, double avgBal, double interestRate,
+	public AccountStatus(int totalCustomers, double totalBal, double avgBal, double interestRate,
 			double minCashAvail) {
 		super();
 		this.totalCustomers = totalCustomers;
@@ -31,10 +31,10 @@ public class AccountStatus {
 		this.interestRate = interestRate;
 		this.minCashAvail = minCashAvail;
 	}
-	public double getTotalCustomers() {
+	public int getTotalCustomers() {
 		return totalCustomers;
 	}
-	public void setTotalCustomers(double totalCustomers) {
+	public void setTotalCustomers(int totalCustomers) {
 		this.totalCustomers = totalCustomers;
 	}
 	public double getTotalBal() {

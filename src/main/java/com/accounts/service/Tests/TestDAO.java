@@ -41,6 +41,14 @@ public class TestDAO {
 		 tester.deleteAccount(new Accounts(100,"Test Name",0.0,new Date()));
 		 assertNotEquals(tester.getAllAccounts().get(tester.getAllAccounts().size()-1), 100);
 	}
+	@SuppressWarnings("deprecation")
+	@Test
+	public void testStatus(){
+		
+		 assertNotNull((tester.getStatus()));
+		 assertEquals(tester.getAllAccounts().size(), tester.getStatus().getTotalCustomers());
+
+	}
 	
 	@After
 	public void Cleanup() {
