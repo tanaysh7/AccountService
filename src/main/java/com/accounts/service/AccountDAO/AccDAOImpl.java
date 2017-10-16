@@ -93,7 +93,7 @@ public class AccDAOImpl implements AccDAO {
 		RedissonClient client = createClient();
 		RBucket<List<Accounts>> bucket = client.getBucket("accounts");
 		List<Accounts> all= bucket.get();
-		return new AccountStatus(all.size(), all.stream().mapToDouble(a -> a.getAccBalance()).sum(),all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(),calculateInterest(all),all.stream().mapToDouble(a -> a.getAccBalance()).sum()/10);
+		return new AccountStatus(all.size(), all.stream().mapToDouble(a -> a.getAccBalance()).sum(),all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble(),calculateInterest(all),all.stream().mapToDouble(a -> a.getAccBalance()).average().getAsDouble()*10);
 	}
 
 
